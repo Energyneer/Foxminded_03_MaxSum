@@ -5,16 +5,26 @@ namespace Task3
 {
     public class DataAnalize
     {
-        public List<int> errorLines { get; set; }
+        public List<ulong> ErrorLines { get; set; }
         public decimal MaxSum { get; set; }
-        private int LineCounter;
+        private readonly string[] Data;
+        private ulong LineCounter;
 
-        public DataAnalize()
+        public DataAnalize(string[] data)
         {
-            errorLines = new List<int>();
+            Data = data;
+            ErrorLines = new List<ulong>();
         }
 
-        public void ParseLine(string line)
+        public void ParseAll()
+        {
+            foreach (string line in Data)
+            {
+                ParseLine(line);
+            }
+        }
+
+        private void ParseLine(string line)
         {
             LineCounter++;
             try
@@ -31,7 +41,7 @@ namespace Task3
             }
             catch
             {
-                errorLines.Add(LineCounter);
+                ErrorLines.Add(LineCounter);
             }
         }
     }

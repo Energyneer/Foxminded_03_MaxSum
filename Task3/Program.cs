@@ -7,35 +7,28 @@ namespace Task3
     {
         static void Main(string[] args)
         {
-            string path = "";
+            string filePath = "";
             if (args.Length > 0)
-                path = args[0];
+                filePath = args[0];
 
-            while (!CheckFile(path))
+            while (!CheckFile(filePath))
             {
                 Console.Write("Enter file path: ");
-                path = Console.ReadLine();
+                filePath = Console.ReadLine();
             }
 
-            DataAnalize data = new DataAnalize();
-            using (StreamReader reader = new StreamReader(path))
-            {
-                while (reader.Peek() >= 0)
-                {
-                    data.ParseLine(reader.ReadLine());
-                }
-            }
+            string[] data = ReadFile.Processing(filePath);
+            
+            DataAnalize dataAnalize = new DataAnalize(data);
+            dataAnalize.ParseAll();
 
-            Console.WriteLine("Max Sum: " + data.MaxSum);
-            Console.WriteLine("Error lines: " + string.Join(", ", data.errorLines));
+            Console.WriteLine("Max Sum: " + dataAnalize.MaxSum);
+            Console.WriteLine("Error lines: " + string.Join(", ", dataAnalize.ErrorLines));
         }
 
         private static bool CheckFile(string path)
         {
-            if (!File.Exists(path))
-                return false;
-
-            return true;
+            return File.Exists(path);
         }
     }
 }
