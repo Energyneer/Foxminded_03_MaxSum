@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Task3
 {
-    class ReadFile
+    class WorkFile
     {
 
         public static string[] Processing(string path)
@@ -21,6 +21,11 @@ namespace Task3
                 Console.WriteLine("Error file reading");
                 return new string[] { "" };
             }
+        }
+
+        public static bool CheckFile(string path)
+        {
+            return File.Exists(path);
         }
     }
 }
